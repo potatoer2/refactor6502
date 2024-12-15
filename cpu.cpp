@@ -155,7 +155,7 @@ void CPU::InvokeInstruction(Byte opcode, u32& Cycles, Mem& memory) {
 }
 
 void CPU::Execute(u32 Cycles, Mem& memory) {
-    while (true) {
+    while (Cycles>0) {
         int Instruction = FetchByte(Cycles, memory);
         InvokeInstruction(Instruction, Cycles, memory);
 

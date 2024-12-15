@@ -48,4 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODO OPCODES.txt">
+      <Filter>Header Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

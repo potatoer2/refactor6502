@@ -1,6 +1,7 @@
 #pragma once
 #include "memory.h"
 
+bool useCycles ;
 static constexpr u32 MAX_MEM = 1024 * 64;
 Byte Data[MAX_MEM];
 
@@ -25,7 +26,19 @@ void Mem::WriteWord(u32& Cycle, Word DataToWrite, u32 Adress) {
 }
 void Mem::LoadMachineCodeFromFile(const std::string& filename) {
     Initialise();
+    /*do {
+        std::cerr << "Do you want to utilise cycles? [Y/N]";
+    } while (tolower(std::cin.get()) != 'y' || tolower(std::cin.get()) != 'n');
+    if (tolower(std::cin.get()) == 'y')
+    {
+        useCycles == true;
+    }
+    else if (tolower(std::cin.get()) == 'n')
+    {
+        useCycles == false;
+    }*/
 
+    
     std::ifstream file(filename, std::ios::binary);
     if (!file) {
         std::cerr << "Error opening file: " << filename << std::endl;

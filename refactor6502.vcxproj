@@ -140,6 +140,9 @@
     <ClInclude Include="table.h" />
     <ClInclude Include="types.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODO OPCODES.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

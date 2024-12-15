@@ -189,6 +189,27 @@ struct InstructionHandlers
         }
         Cycles -= 3;
     }
+    static void LDA_ABS_Handler(CPU& cpu, u32& Cycles, Mem& memory) 
+    {
+        Word Adress = cpu.FetchWord(Cycles, memory);
+        cpu.A = memory[Adress];
+        cpu.LDASetStatus();
+    }
+    static void STA_ZP_Handler(CPU& cpu, u32& Cycles, Mem& memory) 
+    {
+        Byte Adress = cpu.FetchByte(Cycles, memory);
+        memory[Adress] = cpu.A;
+    }
+    static void STA_ABS_Handler(CPU& cpu, u32& Cycles, Mem& memory) 
+    {
+        Word Adress = cpu.FetchWord(Cycles, memory);
+        memory[Adress] = cpu.A;
+    }
+    static void ADC_ZP_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.ADCSetStatus(memory[cpu.FetchByte(Cycles, memory)]);
+
+    }
 
     bool operator==(const InstructionHandlers& other) const
     {

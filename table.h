@@ -8,7 +8,11 @@ void InitializeInstructionTable() {
     CPU::instructionTable[0xA9] = &InstructionHandlers::LDA_IM_Handler;   // LDA Immediate
     CPU::instructionTable[0xA5] = &InstructionHandlers::LDA_ZP_Handler;   // LDA Zero Page
     CPU::instructionTable[0xB5] = &InstructionHandlers::LDA_ZPX_Handler;  // LDA Zero Page, X
-    CPU::instructionTable[0x69] = &InstructionHandlers::ADC_Handler;      // ADC
+    CPU::instructionTable[0xAD] = &InstructionHandlers::LDA_ABS_Handler;  // LDA Absolute
+    CPU::instructionTable[0x85] = &InstructionHandlers::STA_ZP_Handler;   // STA Zero page
+    CPU::instructionTable[0x8D] = &InstructionHandlers::STA_ABS_Handler;  // STA Absolute
+    CPU::instructionTable[0x65] = &InstructionHandlers::ADC_ZP_Handler;   // ADC Zero Page
+    CPU::instructionTable[0x69] = &InstructionHandlers::ADC_Handler;      // ADC Immediate
     CPU::instructionTable[0x29] = &InstructionHandlers::AND_Handler;      // AND
     CPU::instructionTable[0x90] = &InstructionHandlers::BCC_Handler;      // BCC
     CPU::instructionTable[0xB0] = &InstructionHandlers::BCS_Handler;      // BCS
