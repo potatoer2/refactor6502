@@ -2,9 +2,8 @@
 // LDA_INX = 0xA1  ; Load Accumulator (Indexed Indirect)
 // LDA_INY = 0xB1  ; Load Accumulator (Indirect Indexed)
 //INY     = 0xC8  ; Increment Y Register
-//DEY     = 0x88  ; Decrement Y Register
-//TAY     = 0xA8  ; Transfer Accumulator to Y Register
-//TYA     = 0x98  ; Transfer Y Register to Accumulator
+
+
 
 
 
@@ -19,3 +18,6 @@ CMP_IM  = 0xC9  ; Compare Accumulator (Immediate)
 CPX_IM  = 0xE0  ; Compare X Register (Immediate)
 CPY_IM  = 0xC0  ; Compare Y Register (Immediate)
 BIT_ZP  = 0x24  ; Test Bits in Memory (Zero Page)
+
+ERRORS IN NEWLY IMPLEMENTED SBC, TYA, TAY, LDX_ZP, STX_ABS
+I think?

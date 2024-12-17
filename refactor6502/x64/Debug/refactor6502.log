@@ -1,1 +1,4 @@
-﻿  refactor6502.vcxproj -> D:\refactor6502\x64\Debug\refactor6502.exe
+﻿  6502.cpp
+  cpu.cpp
+  Generating Code...
+  refactor6502.vcxproj -> D:\refactor6502\x64\Debug\refactor6502.exe

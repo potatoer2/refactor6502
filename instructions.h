@@ -21,6 +21,10 @@ namespace Instructions {
         TYA = 0x98,
         TAY = 0xA8,
         DEY = 88,
+        STX = 0x8E,
+        INX = 0xE8,
+        
+        
 
         //Logic and arythemtic
         ADC = 0x69,
@@ -29,6 +33,8 @@ namespace Instructions {
         ORA = 0x09,
         SBC_IM = 0xE9,
         EOR_IM = 0x49,
+        SBC_ZP = 0xE5,
+
 
         //Branches
         BCC = 0x90,

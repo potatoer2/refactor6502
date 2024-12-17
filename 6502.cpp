@@ -20,6 +20,7 @@ int main(/*int argc, char* argv[]*/)
 	std::string filePath;
 	std::cerr << "Pick program to execute"<<std::endl;
 	std::cin >> filePath;
+	filePath.erase(remove(filePath.begin(), filePath.end(), '"'), filePath.end());
 	mem.LoadMachineCodeFromFile(filePath);
 	cpu.Reset(mem);
 	InitializeInstructionTable();

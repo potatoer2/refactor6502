@@ -17,12 +17,12 @@
 
 
 CPU::InstructionHandler CPU::instructionTable[256] = { nullptr };
-void CPU::printA() {
-    if (A == 0xFF) {
-        std::cout << "A Register is NULL (uninitialized)" << std::endl;
+void CPU::printReg(Byte reg) {
+    if (reg == 0xFF) {
+        std::cout << "Register is NULL (uninitialized)" << std::endl;
     }
     else {
-        std::cout << "A Register: 0x" << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(A) << std::dec << std::endl;
+        std::cout << "Register: 0x" << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(reg) << std::dec << std::endl;
     }
 }
 
@@ -182,7 +182,6 @@ void CPU::Execute(u32 Cycles, Mem& memory) {
     while (Cycles>0) {
         int Instruction = FetchByte(Cycles, memory);
         InvokeInstruction(Instruction, Cycles, memory);
-        printA();
         if (std::cin.get() == ' ') {
             continue;
         }
