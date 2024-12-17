@@ -174,7 +174,7 @@ void CPU::Execute(u32 Cycles, Mem& memory) {
     while (Cycles>0) {
         int Instruction = FetchByte(Cycles, memory);
         InvokeInstruction(Instruction, Cycles, memory);
-
+        printA();
         if (std::cin.get() == ' ') {
             continue;
         }
