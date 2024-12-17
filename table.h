@@ -7,11 +7,16 @@
 void InitializeInstructionTable() {
     CPU::instructionTable[0xA9] = &InstructionHandlers::LDA_IM_Handler;   // LDA Immediate
     CPU::instructionTable[0xA5] = &InstructionHandlers::LDA_ZP_Handler;   // LDA Zero Page
+    CPU::instructionTable[0xA6] = &InstructionHandlers::LDX_ZP_Handler;
     CPU::instructionTable[0xB5] = &InstructionHandlers::LDA_ZPX_Handler;  // LDA Zero Page, X
     CPU::instructionTable[0xAD] = &InstructionHandlers::LDA_ABS_Handler;  // LDA Absolute
     CPU::instructionTable[0xA2] = &InstructionHandlers::LDX_IM_Handler;   // LDX Immediate
     CPU::instructionTable[0x85] = &InstructionHandlers::STA_ZP_Handler;   // STA Zero page
     CPU::instructionTable[0x8D] = &InstructionHandlers::STA_ABS_Handler;  // STA Absolute
+    CPU::instructionTable[0x86] = &InstructionHandlers::STX_ZP_Handler;   //STX Zero Page
+    CPU::instructionTable[0xA0] = &InstructionHandlers::LDY_IM_Handler;   //LDY Immediate
+    CPU::instructionTable[0x98] = &InstructionHandlers::TAY_Handler;      //TAY
+    CPU::instructionTable[0xA8] = &InstructionHandlers::TAY_Handler;      //TYA
     CPU::instructionTable[0xAA] = &InstructionHandlers::TAX_Handler;      // TAX
     CPU::instructionTable[0x65] = &InstructionHandlers::ADC_ZP_Handler;   // ADC Zero Page
     CPU::instructionTable[0x69] = &InstructionHandlers::ADC_Handler;      // ADC Immediate
@@ -26,12 +31,14 @@ void InitializeInstructionTable() {
     CPU::instructionTable[0x10] = &InstructionHandlers::BPL_Handler;      // BPL
     CPU::instructionTable[0x50] = &InstructionHandlers::BVC_Handler;      // BVC
     CPU::instructionTable[0x70] = &InstructionHandlers::BVS_Handler;      // BVS
+    CPU::instructionTable[0x38] = &InstructionHandlers::SEC_Handler;      //SEC
     CPU::instructionTable[0x18] = &InstructionHandlers::CLC_Handler;      // CLC
     CPU::instructionTable[0xD8] = &InstructionHandlers::CLD_Handler;      // CLD
     CPU::instructionTable[0x58] = &InstructionHandlers::CLI_Handler;      // CLI
     CPU::instructionTable[0xB8] = &InstructionHandlers::CLV_Handler;      // CLV
     CPU::instructionTable[0xC9] = &InstructionHandlers::CMP_Handler;      // CMP
     CPU::instructionTable[0xC6] = &InstructionHandlers::DEC_Handler;      // DEC
+    CPU::instructionTable[0x88] = &InstructionHandlers::DEY_Handler;
     CPU::instructionTable[0xE6] = &InstructionHandlers::INC_Handler;      // INC
     CPU::instructionTable[0x20] = &InstructionHandlers::JSR_Handler;      // JSR
     CPU::instructionTable[0x4C] = &InstructionHandlers::JMP_Handler;      // JMP

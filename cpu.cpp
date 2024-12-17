@@ -118,7 +118,14 @@ void CPU::ExecuteBranch(u32& Cycles, Mem& memory, bool Condition) {
 
     if (Condition) {
         // Calculate the target address
-        PC += Offset; // Offset is signed, so it handles forward/backward branches
+        if (Offset < 0x80)
+        {
+            PC -= 0x80 - Offset;
+        }
+        else if (Offset > 128)
+        {
+            PC += Offset - 0x80;
+        }
         Cycles += 1;  // Add an extra cycle for the taken branch
         std::cout << "Branch Condition: " << Condition
             << ", Offset: " << static_cast<int>(Offset)
@@ -164,9 +171,10 @@ void CPU::InvokeInstruction(Byte opcode, u32& Cycles, Mem& memory) {
     CPU::InstructionHandler handler = CPU::GetInstructionHandler(opcode);
     if (handler != nullptr) {
         handler(*this, Cycles, memory);
+        
     }
     else {
-        std::cout << "No handler found for opcode: " << static_cast<int>(opcode) << std::endl;
+        std::cout << "No handler found for opcode: "<< opcode << std::endl;
     }
 }
 

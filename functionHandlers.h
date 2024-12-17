@@ -28,13 +28,43 @@ struct InstructionHandlers
         Cycles--;
         cpu.LDASetStatus();
     }
+    static void LDX_ZP_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.X = cpu.ReadByte(Cycles, memory, cpu.FetchByte(Cycles, memory));
+        cpu.Z = (cpu.X == 0);
+        cpu.N = (cpu.X & 0b10000000) > 0;
+    }
     static void TAX_Handler(CPU& cpu, u32& Cycles, Mem& memory)
     {
         cpu.X = cpu.A;
         cpu.Z = (cpu.X == 0);
         cpu.N = (cpu.X & 0b10000000) > 0;
     }
+    static void TAY_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.Y = cpu.A;
+        cpu.Z = (cpu.X == 0);
+        cpu.N = (cpu.X & 0b10000000) > 0;
+    }
+    static void DEY_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.Y -= 1;
+        cpu.Z = (cpu.Y == 0);
+        cpu.N = (cpu.Y & 0b10000000) > 0;
+    }
+    static void TYA_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.Y = cpu.A;
+        cpu.Z = (cpu.A == 0);
+        cpu.N = (cpu.A & 0b10000000) > 0;
+    }
+    static void LDY_IM_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.Y = cpu.FetchByte(Cycles, memory);
+        cpu.Z = (cpu.Y == 0);
+        cpu.N = (cpu.Y & 0b10000000) > 0;
 
+    }
     static void ADC_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
         cpu.ADCSetStatus(cpu.FetchByte(Cycles, memory));
     }
@@ -98,6 +128,10 @@ struct InstructionHandlers
 
     static void CLV_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
         cpu.V = 0;
+    }
+
+    static void SEC_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
+        cpu.C = 1;
     }
 
     static void CMP_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
@@ -256,6 +290,12 @@ struct InstructionHandlers
     {
         Word Adress = cpu.FetchWord(Cycles, memory);
         memory[Adress] = cpu.A;
+    }
+
+    static void STX_ZP_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        Word Adress = cpu.FetchByte(Cycles, memory);
+        memory[Adress] = cpu.X;
     }
     static void ADC_ZP_Handler(CPU& cpu, u32& Cycles, Mem& memory)
     {

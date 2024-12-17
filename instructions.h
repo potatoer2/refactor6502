@@ -12,9 +12,15 @@ namespace Instructions {
         LDA_ABS = 0xAD,
         STA_ZP = 0x85,
         STA_ABS = 0x8D,
+        STX_IM = 0X86,
         ADC_ZP = 0x65,
         LDX_IM = 0XA2,
+        LDX_ZP = 0xA6,
         TAX = 0xAA,
+        LDY_IM = 0xA0,
+        TYA = 0x98,
+        TAY = 0xA8,
+        DEY = 88,
 
         //Logic and arythemtic
         ADC = 0x69,
@@ -35,6 +41,7 @@ namespace Instructions {
         BVS = 0x70,
 
         //Status manip
+        SEC = 0x38,
         CLC = 0x18,
         CLD = 0xD8,
         CLI = 0x58,
