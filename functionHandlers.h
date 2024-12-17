@@ -13,6 +13,10 @@ struct InstructionHandlers
         cpu.A = cpu.FetchByte(Cycles, memory);
         cpu.LDASetStatus();
     }
+    static void LDX_IM_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
+        cpu.X = cpu.FetchByte(Cycles, memory);
+        cpu.LDASetStatus();
+    }
 
     static void LDA_ZP_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
         cpu.A = cpu.ReadByte(Cycles, memory, cpu.FetchByte(Cycles, memory));
@@ -24,13 +28,27 @@ struct InstructionHandlers
         Cycles--;
         cpu.LDASetStatus();
     }
+    static void TAX_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.X = cpu.A;
+        cpu.Z = (cpu.X == 0);
+        cpu.N = (cpu.X & 0b10000000) > 0;
+    }
 
     static void ADC_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
         cpu.ADCSetStatus(cpu.FetchByte(Cycles, memory));
     }
+    static void SBC_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
+        cpu.SBCSetStatus(cpu.FetchByte(Cycles, memory));
+    }
 
     static void AND_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
         cpu.A = cpu.A & cpu.FetchByte(Cycles, memory);
+        cpu.AndSetStatus();
+    }
+    static void EOR_IM_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.A = cpu.A ^ cpu.FetchByte(Cycles, memory);
         cpu.AndSetStatus();
     }
 
@@ -188,6 +206,40 @@ struct InstructionHandlers
             memory[cpu.SP] = memory[cpu.SP] & 0b10000000;
         }
         Cycles -= 3;
+    }
+    static void PLP_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.SP++;
+        cpu.modifySP();
+        if (memory[cpu.SP] & (1 << 0))
+        {
+            cpu.C = 1;
+        }
+        if (memory[cpu.SP] & (1 << 1))
+        {
+            cpu.Z = 1;
+        }
+        if (memory[cpu.SP] & (1 << 2))
+        {
+            cpu.I = 1;
+        }
+        if (memory[cpu.SP] & (1 << 3))
+        {
+            cpu.D = 1;
+        }
+        if (memory[cpu.SP] & (1 << 4))
+        {
+            cpu.B = 1;
+        }
+        if (memory[cpu.SP] & (1 << 6))
+        {
+            cpu.V = 1;
+        }
+        if (memory[cpu.SP] & (1 << 7))
+        {
+            cpu.N = 1;
+        }
+
     }
     static void LDA_ABS_Handler(CPU& cpu, u32& Cycles, Mem& memory) 
     {

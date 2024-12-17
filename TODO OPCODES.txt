@@ -1,18 +1,16 @@
-SBC_IM  = 0xE9  ; Subtract with Carry (Immediate)
-EOR_IM  = 0x49  ; Exclusive OR (Immediate)
-BPL_REL = 0x10  ; Branch if Positive (Relative)
-PLP     = 0x28  ; Pull Processor Status from Stack
-LDA_INX = 0xA1  ; Load Accumulator (Indexed Indirect)
-LDA_INY = 0xB1  ; Load Accumulator (Indirect Indexed)
-SEC     = 0x38  ; Set Carry Flag
-TAX     = 0xAA  ; Transfer Accumulator to X Register
-TAY     = 0xA8  ; Transfer Accumulator to Y Register
+
+// LDA_INX = 0xA1  ; Load Accumulator (Indexed Indirect)
+// LDA_INY = 0xB1  ; Load Accumulator (Indirect Indexed)
+//INY     = 0xC8  ; Increment Y Register
+//DEY     = 0x88  ; Decrement Y Register
+//TAY     = 0xA8  ; Transfer Accumulator to Y Register
+//TYA     = 0x98  ; Transfer Y Register to Accumulator
+
+
+
 TXA     = 0x8A  ; Transfer X Register to Accumulator
-TYA     = 0x98  ; Transfer Y Register to Accumulator
 INX     = 0xE8  ; Increment X Register
 DEX     = 0xCA  ; Decrement X Register
-INY     = 0xC8  ; Increment Y Register
-DEY     = 0x88  ; Decrement Y Register
 ASL_ACC = 0x0A  ; Arithmetic Shift Left (Accumulator)
 LSR_ACC = 0x4A  ; Logical Shift Right (Accumulator)
 ROL_ACC = 0x2A  ; Rotate Left (Accumulator)

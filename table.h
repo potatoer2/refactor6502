@@ -9,11 +9,15 @@ void InitializeInstructionTable() {
     CPU::instructionTable[0xA5] = &InstructionHandlers::LDA_ZP_Handler;   // LDA Zero Page
     CPU::instructionTable[0xB5] = &InstructionHandlers::LDA_ZPX_Handler;  // LDA Zero Page, X
     CPU::instructionTable[0xAD] = &InstructionHandlers::LDA_ABS_Handler;  // LDA Absolute
+    CPU::instructionTable[0xA2] = &InstructionHandlers::LDX_IM_Handler;   // LDX Immediate
     CPU::instructionTable[0x85] = &InstructionHandlers::STA_ZP_Handler;   // STA Zero page
     CPU::instructionTable[0x8D] = &InstructionHandlers::STA_ABS_Handler;  // STA Absolute
+    CPU::instructionTable[0xAA] = &InstructionHandlers::TAX_Handler;      // TAX
     CPU::instructionTable[0x65] = &InstructionHandlers::ADC_ZP_Handler;   // ADC Zero Page
     CPU::instructionTable[0x69] = &InstructionHandlers::ADC_Handler;      // ADC Immediate
+    CPU::instructionTable[0xE9] = &InstructionHandlers::SBC_Handler;      //SBC Immediate
     CPU::instructionTable[0x29] = &InstructionHandlers::AND_Handler;      // AND
+    CPU::instructionTable[0x49] = &InstructionHandlers::EOR_IM_Handler;   // EOR
     CPU::instructionTable[0x90] = &InstructionHandlers::BCC_Handler;      // BCC
     CPU::instructionTable[0xB0] = &InstructionHandlers::BCS_Handler;      // BCS
     CPU::instructionTable[0xF0] = &InstructionHandlers::BEQ_Handler;      // BEQ
@@ -34,6 +38,7 @@ void InitializeInstructionTable() {
     CPU::instructionTable[0x60] = &InstructionHandlers::RTS_Handler;      // RTS
     CPU::instructionTable[0x48] = &InstructionHandlers::PHA_Handler;      // PHA
     CPU::instructionTable[0x68] = &InstructionHandlers::PLA_Handler;      // PLA
+    CPU::instructionTable[0x28] = &InstructionHandlers::PLP_Handler;      // PLP
     CPU::instructionTable[0xEA] = &InstructionHandlers::NOP_Handler;      // NOP
     CPU::instructionTable[0x09] = &InstructionHandlers::ORA_Handler;      // ORA
     CPU::instructionTable[0x08] = &InstructionHandlers::PHP_Handler;      // PHP

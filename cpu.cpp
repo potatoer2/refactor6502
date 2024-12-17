@@ -52,8 +52,11 @@ Byte CPU::FetchByte(u32& Cycles, Mem& memory) {
 
 Word CPU::FetchWord(u32& Cycles, Mem& memory) {
     Word Data = memory[PC];
+    std::cout << "FetchWord: Low byte at PC=" << std::hex << PC << " is " << (unsigned)Data << std::endl;
     PC++;
     Data |= (memory[PC] << 8);
+    std::cout << "FetchWord: High byte at PC=" << std::hex << PC << " is " << (unsigned)memory[PC]
+        << ", combined Word=" << Data << std::endl;
     PC++;
     Cycles -= 2;
     return Data;
@@ -99,18 +102,31 @@ void CPU::ADCSetStatus(Byte Value) {
     V = (~(A ^ Value) & (A ^ Result) & 0x80) != 0;
     A = Result & 0xFF;
 }
+void CPU::SBCSetStatus(Byte Value)
+{
+    u32 Result = A - Value + C;
+    C = (Result > 0xFF);
+    Z = ((Result & 0xFF) == 0);
+    N = ((Result & 0x80) != 0);
+    V = (~(A ^ Value) & (A ^ Result) & 0x80) != 0;
+    A = Result & 0xFF;
+}
 
 void CPU::ExecuteBranch(u32& Cycles, Mem& memory, bool Condition) {
     Byte Offset = FetchByte(Cycles, memory);
+    PC--;
 
     if (Condition) {
-        Word TargetPC = PC + static_cast<int8_t>(Offset);
-        Cycles--;
-        if ((PC & 0xFF00) != (TargetPC & 0xFF00)) {
-            Cycles--;
-        }
-        PC = TargetPC;
-
+        // Calculate the target address
+        PC += Offset; // Offset is signed, so it handles forward/backward branches
+        Cycles += 1;  // Add an extra cycle for the taken branch
+        std::cout << "Branch Condition: " << Condition
+            << ", Offset: " << static_cast<int>(Offset)
+            << ", New PC: " << PC << std::endl;
+    }
+    else {
+        // Increment PC by 1 because we only fetched one byte
+        PC += 1;
     }
 }
 

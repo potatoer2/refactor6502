@@ -33,6 +33,7 @@ struct CPU
     void Reset(Mem& memory);
     Word PullWord(u32& Cycles, Mem& memory);
     void ADCSetStatus(Byte Value);
+    void SBCSetStatus(Byte Value);
     void ExecuteBranch(u32& Cycles, Mem& memory, bool Condition);
     void LDASetStatus();
     void AndSetStatus();

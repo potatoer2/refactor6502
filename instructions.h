@@ -13,12 +13,16 @@ namespace Instructions {
         STA_ZP = 0x85,
         STA_ABS = 0x8D,
         ADC_ZP = 0x65,
+        LDX_IM = 0XA2,
+        TAX = 0xAA,
 
         //Logic and arythemtic
         ADC = 0x69,
         AND = 0x29,
         CMP = 0xC9,
         ORA = 0x09,
+        SBC_IM = 0xE9,
+        EOR_IM = 0x49,
 
         //Branches
         BCC = 0x90,
@@ -50,6 +54,8 @@ namespace Instructions {
         PHA = 0x48,
         PLA = 0x68,
         PHP = 0x08,
+        PLP = 0x28,
+
 
 
 

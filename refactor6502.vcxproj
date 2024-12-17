@@ -130,6 +130,7 @@
     <ClCompile Include="6502.cpp" />
     <ClCompile Include="cpu.cpp" />
     <ClCompile Include="memory.cpp" />
+    <ClCompile Include="zeroWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpu.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="types.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="program.bin" />
     <Text Include="TODO OPCODES.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
