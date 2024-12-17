@@ -45,6 +45,7 @@ struct InstructionHandlers
         cpu.Y = cpu.A;
         cpu.Z = (cpu.X == 0);
         cpu.N = (cpu.X & 0b10000000) > 0;
+        cpu.printReg(cpu.Y);
     }
     static void DEY_Handler(CPU& cpu, u32& Cycles, Mem& memory)
     {
@@ -65,8 +66,28 @@ struct InstructionHandlers
         cpu.N = (cpu.Y & 0b10000000) > 0;
 
     }
+    static void STX_ABS_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        Word Adress = cpu.FetchWord(Cycles, memory);
+        memory[Adress] = cpu.X;
+    }
+    static void INX_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.X += 1;
+    }
     static void ADC_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
         cpu.ADCSetStatus(cpu.FetchByte(Cycles, memory));
+    }
+
+    static void SBC_ZP_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        Byte Value = cpu.FetchByte(Cycles, memory);
+        u32 Result = cpu.A - Value - ~cpu.C;
+        cpu.C = (Result > 0xFF);
+        cpu.Z = ((Result & 0xFF) == 0);
+        cpu.N = ((Result & 0x80) != 0);
+        cpu.V = (~(cpu.A ^Value) & (cpu.A ^ Result) & 0x80) != 0;
+        cpu.A = Result & 0xFF;
     }
     static void SBC_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
         cpu.SBCSetStatus(cpu.FetchByte(Cycles, memory));
@@ -168,7 +189,7 @@ struct InstructionHandlers
         cpu.PC = cpu.FetchWord(Cycles, memory);
         printf("JMP to 0x%X\n", cpu.PC);
         Cycles--;
-        cpu.printA();
+        cpu.printReg(cpu.A);
     }
 
     static void RTS_Handler(CPU& cpu, u32& Cycles, Mem& memory) {

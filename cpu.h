@@ -25,7 +25,7 @@ struct CPU
     static InstructionHandler instructionTable[256];
 
 
-    void printA();
+    void printReg(Byte reg);
     void modifySP();
     Byte FetchByte(u32& Cycles, Mem& memory);
     Word FetchWord(u32& Cycles, Mem& memory);
