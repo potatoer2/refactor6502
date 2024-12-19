@@ -4,6 +4,7 @@
 
 #include "instructions.h"
 #include "memory.h"
+
 using namespace Instructions;
 
 struct CPU
@@ -26,6 +27,7 @@ struct CPU
 
 
     void printReg(Byte reg);
+    void clockTime();
     void modifySP();
     Byte FetchByte(u32& Cycles, Mem& memory);
     Word FetchWord(u32& Cycles, Mem& memory);

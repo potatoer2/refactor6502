@@ -43,13 +43,13 @@ struct InstructionHandlers
     static void TAY_Handler(CPU& cpu, u32& Cycles, Mem& memory)
     {
         cpu.Y = cpu.A;
-        cpu.Z = (cpu.X == 0);
-        cpu.N = (cpu.X & 0b10000000) > 0;
+        cpu.Z = (cpu.Y == 0);
+        cpu.N = (cpu.Y & 0b10000000) > 0;
         cpu.printReg(cpu.Y);
     }
     static void DEY_Handler(CPU& cpu, u32& Cycles, Mem& memory)
     {
-        cpu.Y -= 1;
+        cpu.Y -= 0x01;
         cpu.Z = (cpu.Y == 0);
         cpu.N = (cpu.Y & 0b10000000) > 0;
     }

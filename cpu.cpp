@@ -35,6 +35,10 @@ void CPU::modifySP()
         SP = 0x0100;
     }
 }
+void CPU::clockTime()
+{
+    std::this_thread::sleep_for(std::chrono::microseconds(1));
+}
 
 Byte CPU::FetchByte(u32& Cycles, Mem& memory) {
     if (PC >= memory.MAX_MEM) {
@@ -78,7 +82,6 @@ void CPU::Reset(Mem& memory) {
     C = Z = I = D = B = V = N = 0;
     A = X = Y = 0;
 
-    // InitializeInstructionTable();
 
 }
 
@@ -125,10 +128,9 @@ void CPU::ExecuteBranch(u32& Cycles, Mem& memory, bool Condition) {
         else if (Offset > 128)
         {
             PC += Offset - 0x80;
-        }
-        Cycles += 1;  // Add an extra cycle for the taken branch
-        std::cout << "Branch Condition: " << Condition
-            << ", Offset: " << static_cast<int>(Offset)
+        }        Cycles += 1;  // Add an extra cycle for the taken branch
+
+        std::cout << "Branch Condition: "<<Condition << ", Offset: " << static_cast<int>(Offset)
             << ", New PC: " << PC << std::endl;
     }
     else {
