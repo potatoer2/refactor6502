@@ -16,6 +16,7 @@ void InitializeInstructionTable() {
     CPU::instructionTable[0x86] = &InstructionHandlers::STX_ZP_Handler;   // STX Zero Page
     CPU::instructionTable[0x8E] = &InstructionHandlers::STX_ABS_Handler;  // STX Absolute
     CPU::instructionTable[0xE8] = &InstructionHandlers::INX_Handler;      // INX
+    CPU::instructionTable[0xC8] = &InstructionHandlers::INY_Handler;
     CPU::instructionTable[0xA0] = &InstructionHandlers::LDY_IM_Handler;   // LDY Immediate
     CPU::instructionTable[0x98] = &InstructionHandlers::TAY_Handler;      // TAY
     CPU::instructionTable[0xA8] = &InstructionHandlers::TAY_Handler;      // TYA

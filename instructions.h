@@ -23,6 +23,7 @@ namespace Instructions {
         DEY = 88,
         STX = 0x8E,
         INX = 0xE8,
+        INY = 0xC8,
         
         
 

@@ -25,7 +25,6 @@ struct CPU
     typedef void (*InstructionHandler)(CPU& cpu, u32& Cycles, Mem& memory);
     static InstructionHandler instructionTable[256];
 
-
     void printReg(Byte reg);
     void clockTime();
     void modifySP();

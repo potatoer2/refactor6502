@@ -97,6 +97,7 @@ Word CPU::PullWord(u32& Cycles, Mem& memory) {
     return static_cast<Word>(HighByte) << 8 | LowByte;
 }
 
+
 void CPU::ADCSetStatus(Byte Value) {
     u32 Result = A + Value + C;
     C = (Result > 0xFF);
@@ -121,13 +122,13 @@ void CPU::ExecuteBranch(u32& Cycles, Mem& memory, bool Condition) {
 
     if (Condition) {
         // Calculate the target address
-        if (Offset < 0x80)
+        if (Offset < 128)
         {
-            PC -= 0x80 - Offset;
+            PC -= 128 - Offset;
         }
         else if (Offset > 128)
         {
-            PC += Offset - 0x80;
+            PC += Offset - 128;
         }        Cycles += 1;  // Add an extra cycle for the taken branch
 
         std::cout << "Branch Condition: "<<Condition << ", Offset: " << static_cast<int>(Offset)
@@ -176,7 +177,10 @@ void CPU::InvokeInstruction(Byte opcode, u32& Cycles, Mem& memory) {
         
     }
     else {
-        std::cout << "No handler found for opcode: "<< opcode << std::endl;
+        std::cout << "No handler found for opcode: "<< "0x" 
+            << std::hex << std::uppercase << std::setfill('0')
+            << std::setw(2) << static_cast<int>(opcode)
+            << std::endl; 
     }
 }
 
@@ -187,6 +191,7 @@ void CPU::Execute(u32 Cycles, Mem& memory) {
         if (std::cin.get() == ' ') {
             continue;
         }
+        printReg(Y);
     }
 }
 

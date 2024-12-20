@@ -55,7 +55,7 @@ struct InstructionHandlers
     }
     static void TYA_Handler(CPU& cpu, u32& Cycles, Mem& memory)
     {
-        cpu.Y = cpu.A;
+        cpu.A = cpu.Y;
         cpu.Z = (cpu.A == 0);
         cpu.N = (cpu.A & 0b10000000) > 0;
     }
@@ -66,6 +66,13 @@ struct InstructionHandlers
         cpu.N = (cpu.Y & 0b10000000) > 0;
 
     }
+    static void INY_Handler(CPU& cpu, u32& Cycles, Mem& memory)
+    {
+        cpu.Y += 1;
+        cpu.Z = (cpu.Y == 0);
+        cpu.N = (cpu.Y & 0b10000000) > 0;
+        cpu.C = (cpu.Y > 0xFF);
+    }
     static void STX_ABS_Handler(CPU& cpu, u32& Cycles, Mem& memory)
     {
         Word Adress = cpu.FetchWord(Cycles, memory);
@@ -74,6 +81,7 @@ struct InstructionHandlers
     static void INX_Handler(CPU& cpu, u32& Cycles, Mem& memory)
     {
         cpu.X += 1;
+        cpu.C = (cpu.X > 0xFF);
     }
     static void ADC_Handler(CPU& cpu, u32& Cycles, Mem& memory) {
         cpu.ADCSetStatus(cpu.FetchByte(Cycles, memory));
@@ -240,25 +248,25 @@ struct InstructionHandlers
         cpu.SP--;
         cpu.modifySP();
         if (cpu.C == 1) {
-            memory[cpu.SP] = memory[cpu.SP] & 0b00000001;
+            memory[cpu.SP] = memory[cpu.SP] | 0b00000001;
         }
         if (cpu.Z == 1) {
-            memory[cpu.SP] = memory[cpu.SP] & 0b00000010;
+            memory[cpu.SP] = memory[cpu.SP] | 0b00000010;
         }
         if (cpu.I == 1) {
-            memory[cpu.SP] = memory[cpu.SP] & 0b00000100;
+            memory[cpu.SP] = memory[cpu.SP] | 0b00000100;
         }
         if (cpu.D == 1) {
-            memory[cpu.SP] = memory[cpu.SP] & 0b00001000;
+            memory[cpu.SP] = memory[cpu.SP] | 0b00001000;
         }
         if (cpu.B == 1) {
-            memory[cpu.SP] = memory[cpu.SP] & 0b00010000;
+            memory[cpu.SP] = memory[cpu.SP] | 0b00010000;
         }
         if (cpu.V == 1) {
-            memory[cpu.SP] = memory[cpu.SP] & 0b01000000;
+            memory[cpu.SP] = memory[cpu.SP] | 0b01000000;
         }
         if (cpu.N == 1) {
-            memory[cpu.SP] = memory[cpu.SP] & 0b10000000;
+            memory[cpu.SP] = memory[cpu.SP] | 0b10000000;
         }
         Cycles -= 3;
     }
